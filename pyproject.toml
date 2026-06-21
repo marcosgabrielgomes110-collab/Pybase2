@@ -2,7 +2,34 @@
 name = "python-pybase"
 version = "0.1.0"
 description = "A schema-driven, file-based database with encryption"
+readme = "README.md"
 requires-python = ">=3.10"
+license = "MIT"
+keywords = ["database", "json", "encryption", "schema", "file-based", "nosql"]
+authors = [
+    { name = "marcosgabrielgomes110-collab", email = "marcosgabrielgomes110-collab@users.noreply.github.com" },
+]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Database",
+    "Topic :: Security :: Cryptography",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.urls]
+Homepage = "https://github.com/marcosgabrielgomes110-collab/Pybase2"
+Repository = "https://github.com/marcosgabrielgomes110-collab/Pybase2"
+Documentation = "https://github.com/marcosgabrielgomes110-collab/Pybase2/tree/main/docs"
+Changelog = "https://github.com/marcosgabrielgomes110-collab/Pybase2/blob/main/CHANGELOG.md"
+Issues = "https://github.com/marcosgabrielgomes110-collab/Pybase2/issues"
 
 [build-system]
 requires = ["setuptools>=68"]

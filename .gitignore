@@ -1,0 +1,54 @@
+# ── Python ──────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+*.whl
+
+# ── Virtual environments ────────────────────────────────
+.env
+.venv/
+env/
+venv/
+virtualenv/
+
+# ── Testing ─────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+*.cover
+.tox/
+
+# ── IDE / Editor ────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+.vim/
+*.un~
+
+# ── OS ──────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ── Pybase (runtime database files) ─────────────────────
+# Database folders created at runtime by pb.database()
+# Uncomment if you create test databases inside the repo:
+# *.data.json
+# *.schema.json
+# **/__media__/
+
+# ── Logs / Temp ─────────────────────────────────────────
+*.log
+*.tmp
+*.bak

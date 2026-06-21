@@ -1,73 +1,106 @@
 # Pybase
 
-Banco de dados baseado em arquivos com schema opcional e criptografia.
+[![GitHub](https://img.shields.io/badge/GitHub-marcosgabrielgomes110--collab/Pybase2-181717?logo=github)](https://github.com/marcosgabrielgomes110-collab/Pybase2)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python)](https://www.python.org)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![PyPI](https://img.shields.io/badge/PyPI-python--pybase-blue?logo=pypi)](https://pypi.org/project/python-pybase/)
+[![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](#)
+[![Code style](https://img.shields.io/badge/code%20style-stdlib-8A2BE2)](#)
+
+---
+
+**Pybase** é um banco de dados baseado em arquivos JSON com schema opcional, criptografia nativa e zero dependências externas — apenas Python puro.
+
+> ✅ Sem servidor · ✅ Sem SQL · ✅ Sem dependências · ✅ Fácil
+
+---
+
+## Instalação
 
 ```bash
 pip install python-pybase
 ```
 
+Python 3.10+ apenas. Nenhuma dependência externa é necessária.
+
+### Instalação para desenvolvimento
+
+```bash
+git clone https://github.com/marcosgabrielgomes110-collab/Pybase2.git
+cd Pybase2
+pip install -e .
+```
+
+---
+
+## Exemplo rápido
+
 ```python
 from pybase import Pybase as pb
 
-# ── Schema (opcional) ──────────────────────────────────────
+# Schema opcional
 users = pb.schema(
     nome=str,
     idade=int,
-    peso=float,
-    senha=pb.cript(str),              # campo criptografado
-    foto=pb.image,                     # campo imagem
-    email=pb.optional(str),            # opcional
-    idade=pb.optional(int, 18),        # opcional com default
-    ativo=pb.optional(bool, True),     # opcional com default bool
+    senha=pb.cript(str),        # campo criptografado
+    foto=pb.image,               # campo imagem
+    email=pb.optional(str),      # opcional
 )
 
-# ── Database ───────────────────────────────────────────────
+# Criar/abrir banco
 db = pb.database("meudb", "123", schema=users)
 
-# ── Insert ─────────────────────────────────────────────────
-id = db.insert(nome="João", idade=30, peso=72.5,
-               senha="joao123", foto="/home/user/foto.jpg")
+# Inserir
+id_ = db.insert(nome="João", idade=30, senha="joao123")
 
-# ── Consultas ──────────────────────────────────────────────
-db.query.all()                                 # todos
-db.query.count()                               # total
-db.query.first()                               # primeiro
-db.query.last()                                # último
-db.query.get(0)                                # por índice
-db.query.get(id="abc")                         # por uuid
-db.query.find(ativo=True)                      # filtro
-db.query.exists(nome="João")                   # existe?
-
-# ── Operadores ────────────────────────────────────────────
-db.query.find(idade__gte=18)                   # >=
-db.query.find(idade__gt=18)                    # >
-db.query.find(idade__lte=18)                   # <=
-db.query.find(idade__lt=18)                    # <
-db.query.find(idade__ne=18)                    # !=
-db.query.find(nome__contains="ão")             # contém
-db.query.find(nome__startswith="J")            # começa com
-db.query.find(nome__endswith="o")              # termina com
-
-# ── Ordenação / Paginação ─────────────────────────────────
-db.query.all(order_by="nome")                  # crescente
-db.query.all(order_by="-nome")                 # decrescente
-db.query.all(limit=5)
-db.query.all(offset=2)
-db.query.find(ativo=True, order_by="-idade", limit=10)
-
-# ── Update / Delete ───────────────────────────────────────
-db.update(0, peso=80.0)                        # por índice
-db.update(id="abc", nome="João S.")            # por uuid
-db.delete(0)
-db.delete(id="abc")
-
-# ── Sem schema ────────────────────────────────────────────
-db = pb.database("outrodb", "123")
-db.insert(nome="João", idade=30, extra="qualquer")
-
-# ── Lendo imagem ──────────────────────────────────────────
-rec = db.query.get(0)
-rec["foto"].path     # caminho absoluto do arquivo
-rec["foto"].bytes    # conteúdo em bytes
-rec["foto"].name     # nome do arquivo
+# Consultar
+db.query.all()                  # todos registros
+db.query.find(idade__gte=18)   # filtro com operador
+db.query.get(id=id_)           # por UUID
 ```
+
+---
+
+## Funcionalidades
+
+| Funcionalidade     | Descrição |
+|--------------------|-----------|
+| 📦 **Schema opcional** | Define a estrutura dos dados com tipos Python (`str`, `int`, `float`, `bool`) |
+| 🔒 **Criptografia** | Campos protegidos com PBKDF2-SHA256 + HMAC-CTR |
+| 🖼️ **Imagens** | Armazenamento automático de arquivos de imagem |
+| 🔍 **Consultas** | Filtros, ordenação, paginação, operadores (`__gte`, `__contains`, etc.) |
+| 📋 **Transações** | `begin` / `commit` / `rollback` |
+| 💾 **Backup** | Exportação zip completa do banco |
+| 📤 **Export** | JSON e CSV com filtros |
+| 🧹 **Zero dependências** | Apenas stdlib do Python 3.10+ |
+
+---
+
+## Documentação
+
+- [Guia Rápido](docs/guia-rapido.md) — comece aqui
+- [Schema](docs/schema.md) — tipos, campos opcionais, criptografia, imagem
+- [Database](docs/database.md) — CRUD, transações, backup, export
+- [Consultas](docs/query.md) — filtros, operadores, ordenação, paginação
+- [Segurança](docs/seguranca.md) — criptografia, escrita atômica, validação
+- [API](docs/api.md) — referência completa
+
+---
+
+## Testes
+
+```bash
+python -m pytest tests/ -v
+```
+
+---
+
+## Licença
+
+MIT — veja [LICENSE](LICENSE).
+
+---
+
+## Contribuindo
+
+Contribuições são bem-vindas! Veja [CONTRIBUTING.md](CONTRIBUTING.md).
